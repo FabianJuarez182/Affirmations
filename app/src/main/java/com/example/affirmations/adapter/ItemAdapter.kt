@@ -6,9 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.affirmations.R
 import com.example.affirmations.model.Affirmation
+import com.squareup.picasso.Picasso
+
 
 /**
  * Adapter for the [RecyclerView] in [MainActivity]. Displays [Affirmation] data object.
@@ -44,9 +47,11 @@ class ItemAdapter(
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = dataset[position]
         holder.textView.text = context.resources.getString(item.stringResourceId)
-        holder.imageView.setImageResource(item.imageResourceId)
+        Picasso.get().load(item.imageResourceUrl).placeholder(R.drawable.image1).into(holder.imageView)
+        holder.itemView.setOnClickListener{
+            Toast.makeText(context, "Number of position: " + position, Toast.LENGTH_SHORT).show()
+        }
     }
-
     /**
      * Return the size of your dataset (invoked by the layout manager)
      */
